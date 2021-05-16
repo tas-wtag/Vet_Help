@@ -37,7 +37,8 @@
             app:layout_constraintEnd_toStartOf="@+id/enterFirstNameVet"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="HardcodedText,SpUsage" />
 
         <TextView
             android:id="@+id/lastnameVet"
@@ -51,42 +52,41 @@
             android:text="Last Name"
             android:textColor="#000000"
             android:textSize="25dp"
-            app:layout_constraintBottom_toTopOf="@+id/address"
+            app:layout_constraintBottom_toTopOf="@+id/city"
             app:layout_constraintEnd_toStartOf="@+id/enterLastNameVet"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="HardcodedText,SpUsage" />
 
         <TextView
-            android:id="@+id/address"
+            android:id="@+id/city"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginEnd="72dp"
-            android:layout_marginRight="72dp"
+            android:layout_marginEnd="123dp"
+            android:layout_marginRight="123dp"
             android:layout_marginBottom="28dp"
-            android:text="Address"
+            android:text="City"
             android:textColor="#000000"
             android:textSize="25dp"
-            app:layout_constraintBottom_toTopOf="@+id/passingYear"
-            app:layout_constraintEnd_toStartOf="@+id/enterAddress"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintBottom_toTopOf="@+id/phone"
+            app:layout_constraintEnd_toStartOf="@+id/enterCity"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="HardcodedText,SpUsage" />
 
         <TextView
-            android:id="@+id/passingYear"
+            android:id="@+id/phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginEnd="22dp"
-            android:layout_marginRight="22dp"
             android:layout_marginBottom="52dp"
-            android:text="Passing Year"
+            android:text="Phone No"
             android:textColor="#000000"
             android:textSize="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/enterPassingYear"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="HardcodedText,SpUsage" />
 
         <EditText
             android:id="@+id/enterFirstNameVet"
@@ -104,19 +104,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/enterPassingYear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/enterAddress" />
-
-        <EditText
-            android:id="@+id/enterAddress"
+            android:id="@+id/enterCity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -150,12 +138,47 @@
             android:layout_marginRight="190dp"
             android:background="#F1948A"
             android:gravity="center"
-            android:text="Vet"
+            android:text="@string/vet"
             android:textColor="#FFFBFB"
             android:textSize="35dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpUsage" />
+
+        <EditText
+            android:id="@+id/editTextPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="59dp"
+            android:layout_marginLeft="59dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginEnd="11dp"
+            android:layout_marginRight="11dp"
+            android:layout_marginBottom="42dp"
+            android:ems="10"
+            android:inputType="phone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/phone"
+            app:layout_constraintTop_toBottomOf="@+id/enterCity"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="178dp"
+            android:layout_marginLeft="178dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="179dp"
+            android:layout_marginRight="179dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextPhone" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -187,18 +210,21 @@
             android:textSize="26dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText,SpUsage" />
 
         <EditText
             android:id="@+id/enterEmailAddressVet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="91dp"
+            android:layout_marginLeft="91dp"
             android:layout_marginTop="20dp"
             android:ems="10"
             android:inputType="textEmailAddress"
+            app:layout_constraintStart_toEndOf="@+id/emailVet"
             app:layout_constraintTop_toBottomOf="@+id/emailtoSignUp2"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="168dp" />
+            tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/msg"
@@ -206,12 +232,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="64dp"
             android:layout_marginLeft="64dp"
-            android:layout_marginTop="104dp"
+            android:layout_marginTop="80dp"
             android:layout_marginEnd="64dp"
             android:layout_marginRight="64dp"
-            android:text="Use This Email and Password to log in from the next time!"
+            android:text="@string/use_this_email_and_password_to_log_in_from_the_next_time"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.487"
+            app:layout_constraintHorizontal_bias="0.489"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/enterEmailAddressVet" />
 
@@ -226,7 +252,8 @@
             android:textColor="#000000"
             android:textSize="25dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/emailtoSignUp2" />
+            app:layout_constraintTop_toBottomOf="@+id/emailtoSignUp2"
+            tools:ignore="HardcodedText,SpUsage" />
 
         <TextView
             android:id="@+id/passwordVet"
@@ -239,7 +266,8 @@
             android:textColor="#000000"
             android:textSize="25dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/emailtoSignUp2" />
+            app:layout_constraintTop_toBottomOf="@+id/emailtoSignUp2"
+            tools:ignore="HardcodedText,SpUsage" />
 
         <EditText
             android:id="@+id/enterPasswordVet"
@@ -264,14 +292,17 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="140dp"
             android:layout_marginLeft="140dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="140dp"
             android:layout_marginRight="140dp"
             android:text="Continue"
             app:backgroundTint="#F1948A"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.6"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/msg" />
+            app:layout_constraintTop_toBottomOf="@+id/msg"
+            tools:ignore="HardcodedText" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
