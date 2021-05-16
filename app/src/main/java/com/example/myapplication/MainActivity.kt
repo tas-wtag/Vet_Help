@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         mLoginBtn.setOnClickListener(View.OnClickListener {
             val memail = mEmail.getText().toString().trim { it <= ' ' }
-            val mpassword = mPassword.getText().toString().trim { it <= ' ' }
+            val mpassword = mPassword.text.toString().trim { it <= ' ' }
             if (TextUtils.isEmpty(memail)) {
                 mEmail.setError("Email is Required.")
                 return@OnClickListener
@@ -74,11 +74,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         })
 
-
         signUpAsPetOwner.setOnClickListener(View.OnClickListener {
             val intent = Intent(this, PetOwnerSignUpActivity::class.java)
             startActivity(intent)
         })
+
         forgotTextLink.setOnClickListener(View.OnClickListener { v ->
             val resetMail = EditText(v.context)
             val passwordResetDialog = AlertDialog.Builder(v.context)

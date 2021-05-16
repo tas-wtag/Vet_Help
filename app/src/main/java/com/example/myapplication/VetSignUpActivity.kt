@@ -36,10 +36,12 @@ class VetSignUpActivity : AppCompatActivity() {
         fAuth = FirebaseAuth.getInstance()
         fStore = FirebaseFirestore.getInstance()
         progressBar = findViewById(R.id.progressBar)
-        if (fAuth!!.currentUser != null) {
+
+       /* if (fAuth!!.currentUser != null) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-        }
+        }*/
+
         vRegister.setOnClickListener(OnClickListener {
             val emailVet = vEmail.getText().toString().trim { it <= ' ' }
             val passwordVet = vPassword.getText().toString().trim { it <= ' ' }
