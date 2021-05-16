@@ -42,24 +42,25 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="29dp"
             android:text="Last Name"
             android:textColor="#000000"
             android:textSize="25dp"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="167dp" />
+            app:layout_constraintTop_toBottomOf="@+id/firstnamePO" />
 
         <TextView
-            android:id="@+id/addressPO"
+            android:id="@+id/phonePO"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginBottom="36dp"
-            android:text="Address"
+            android:layout_marginTop="28dp"
+            android:text="Phone No"
             android:textColor="#000000"
             android:textSize="25dp"
-            app:layout_constraintBottom_toTopOf="@+id/petType"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lastnamePO"
             tools:ignore="DuplicateIds" />
 
         <TextView
@@ -68,12 +69,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="44dp"
             android:text="Pet Type"
             android:textColor="#000000"
             android:textSize="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/phonePO" />
 
         <EditText
             android:id="@+id/enterFirstNamePO"
@@ -84,8 +87,10 @@
             android:layout_marginTop="96dp"
             android:layout_marginEnd="15dp"
             android:layout_marginRight="15dp"
+            android:layout_marginBottom="6dp"
             android:ems="10"
             android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/enterLastNamePO"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/firstnamePO"
@@ -95,50 +100,69 @@
             android:id="@+id/enterLastNamePO"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="6dp"
             android:layout_marginEnd="15dp"
             android:layout_marginRight="15dp"
+            android:layout_marginBottom="32dp"
             android:ems="10"
             android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/enterAddressPO"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/lastnamePO"
             app:layout_constraintTop_toBottomOf="@+id/enterFirstNamePO" />
 
         <EditText
             android:id="@+id/enterAddressPO"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginLeft="26dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="15dp"
             android:layout_marginRight="15dp"
             android:ems="10"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/phonePO"
             app:layout_constraintTop_toBottomOf="@+id/enterLastNamePO" />
 
         <EditText
             android:id="@+id/enterPetType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="38dp"
+            android:layout_marginLeft="38dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="15dp"
             android:layout_marginRight="15dp"
+            android:layout_marginBottom="33dp"
             android:ems="10"
             android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/petType"
             app:layout_constraintTop_toBottomOf="@+id/enterAddressPO" />
 
         <TextView
             android:id="@+id/POTitle"
             android:layout_width="183dp"
             android:layout_height="45dp"
+            android:layout_marginStart="96dp"
+            android:layout_marginLeft="96dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="96dp"
+            android:layout_marginRight="96dp"
             android:background="#F1948A"
             android:gravity="center"
             android:text="Pet Owner"
             android:textColor="#FFFBFB"
             android:textSize="35dp"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="96dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

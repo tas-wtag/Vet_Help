@@ -39,7 +39,6 @@ class VetSignUpActivity : AppCompatActivity() {
         if (fAuth!!.currentUser != null) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            finish()
         }
         vRegister.setOnClickListener(OnClickListener {
             val emailVet = vEmail.getText().toString().trim { it <= ' ' }
@@ -98,7 +97,7 @@ class VetSignUpActivity : AppCompatActivity() {
                             )
                         }
                             .addOnFailureListener { e -> Log.d(TAG, "onFailure: $e") }
-                        startActivity(Intent(applicationContext, VetSignUpActivity::class.java))
+                        startActivity(Intent(applicationContext, VetHomePageActivity::class.java))
                     } else {
                         Toast.makeText(
                             this,
