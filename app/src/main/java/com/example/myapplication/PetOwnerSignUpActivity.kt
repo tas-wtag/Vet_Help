@@ -13,6 +13,9 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.HashMap
 
@@ -74,6 +77,7 @@ class PetOwnerSignUpActivity :  AppCompatActivity(){
                                         "Verification Email Has been Sent.",
                                         Toast.LENGTH_SHORT
                                 ).show()
+                                task.getResult()?.getUser()?.let { it1 -> onAuthSuccess(it1) }
                             }
                                     .addOnFailureListener { e ->
                                         Log.d(
@@ -110,4 +114,17 @@ class PetOwnerSignUpActivity :  AppCompatActivity(){
                     }
         })
 
-}}
+}
+
+    private fun onAuthSuccess(firebaseUser: FirebaseUser) {
+        val email: String? = firebaseUser.getEmail()
+        var username = email
+        if (email != null && email.contains("@")) {
+            username = email.split("@").toTypedArray()[0]
+        }
+        val user = VetSignUpActivity.User(username, email)
+        val mDatabase: DatabaseReference = FirebaseDatabase.getInstance().getReference()
+        mDatabase.child("pets").child(firebaseUser.getUid()).setValue(user)
+        startActivity(Intent(this, MainActivity::class.java))
+    }
+}

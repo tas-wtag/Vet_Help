@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var mProgressBar: ProgressBar
     lateinit var forgotTextLink: TextView
     var mfAuth: FirebaseAuth? = null
+    var flag:Boolean?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +72,8 @@ class MainActivity : AppCompatActivity() {
 
         signUpAsVet.setOnClickListener(View.OnClickListener {
             val intent = Intent(this, VetSignUpActivity::class.java)
+            flag = true
+            intent.putExtra("flag",flag)
             startActivity(intent)
         })
 

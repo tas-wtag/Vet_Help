@@ -8,8 +8,12 @@ import android.view.View.*
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
+
 
 class VetSignUpActivity : AppCompatActivity() {
     lateinit var vFirstName: EditText
@@ -22,7 +26,18 @@ class VetSignUpActivity : AppCompatActivity() {
     var fAuth: FirebaseAuth? = null
     lateinit var progressBar: ProgressBar
     var fStore: FirebaseFirestore? = null
+    //var rootNode: FirebaseDatabase ?=null
+    //var ref: DatabaseReference?=null
     var userID: String? = null
+
+
+
+    data class User(val username: String? = null, val email: String? = null) {
+        // Null default values create a no-argument default constructor, which is needed
+        // for deserialization from a DataSnapshot.
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vet_signup)
@@ -41,7 +56,6 @@ class VetSignUpActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }*/
-
         vRegister.setOnClickListener(OnClickListener {
             val emailVet = vEmail.getText().toString().trim { it <= ' ' }
             val passwordVet = vPassword.getText().toString().trim { it <= ' ' }
@@ -64,52 +78,66 @@ class VetSignUpActivity : AppCompatActivity() {
 
             // register the user in firebase
             fAuth!!.createUserWithEmailAndPassword(emailVet, passwordVet)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
 
-                        // send verification link
-                        val fuser = fAuth!!.currentUser
-                        fuser!!.sendEmailVerification().addOnSuccessListener {
-                            Toast.makeText(
-                                this,
-                                "Verification Email Has been Sent.",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                            .addOnFailureListener { e ->
+                            // send verification link
+                            val fuser = fAuth!!.currentUser
+                            fuser!!.sendEmailVerification().addOnSuccessListener {
+                                Toast.makeText(
+                                        this,
+                                        "Verification Email Has been Sent.",
+                                        Toast.LENGTH_SHORT
+                                ).show()
+                                task.getResult()?.getUser()?.let { it1 -> onAuthSuccess(it1) }
+                            }
+                                    .addOnFailureListener { e ->
+                                        Log.d(
+                                                TAG,
+                                                "onFailure: Email not sent " + e.message
+                                        )
+                                    }
+                            Toast.makeText(this, "User Created.", Toast.LENGTH_SHORT).show()
+                            userID = fAuth!!.currentUser!!.uid
+                            val documentReference = fStore!!.collection("users").document(
+                                    userID!!
+                            )
+                            val user: MutableMap<String, Any> = HashMap()
+                            user["fName"] = firstNameVet
+                            user["lName"] = lastNameVet
+                            user["email"] = emailVet
+                            user["phone"] = phoneVet
+                            documentReference.set(user).addOnSuccessListener {
                                 Log.d(
-                                    TAG,
-                                    "onFailure: Email not sent " + e.message
+                                        TAG,
+                                        "onSuccess: user Profile is created for $userID"
                                 )
                             }
-                        Toast.makeText(this, "User Created.", Toast.LENGTH_SHORT).show()
-                        userID = fAuth!!.currentUser!!.uid
-                        val documentReference = fStore!!.collection("users").document(
-                            userID!!
-                        )
-                        val user: MutableMap<String, Any> = HashMap()
-                        user["fName"] = firstNameVet
-                        user["lName"] = lastNameVet
-                        user["email"] = emailVet
-                        user["phone"] = phoneVet
-                        documentReference.set(user).addOnSuccessListener {
-                            Log.d(
-                                TAG,
-                                "onSuccess: user Profile is created for $userID"
-                            )
+                                    .addOnFailureListener { e -> Log.d(TAG, "onFailure: $e") }
+                            startActivity(Intent(applicationContext, VetHomePageActivity::class.java))
+                        } else {
+                            Toast.makeText(
+                                    this,
+                                    "Error ! " + task.exception!!.message,
+                                    Toast.LENGTH_SHORT
+                            ).show()
+                            progressBar.setVisibility(GONE)
                         }
-                            .addOnFailureListener { e -> Log.d(TAG, "onFailure: $e") }
-                        startActivity(Intent(applicationContext, VetHomePageActivity::class.java))
-                    } else {
-                        Toast.makeText(
-                            this,
-                            "Error ! " + task.exception!!.message,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        progressBar.setVisibility(GONE)
                     }
-                }
         })
+
+    }
+
+    private fun onAuthSuccess(firebaseUser: FirebaseUser) {
+        val email: String? = firebaseUser.getEmail()
+        var username = email
+        if (email != null && email.contains("@")) {
+            username = email.split("@").toTypedArray()[0]
+        }
+        val user = User(username, email)
+        val mDatabase: DatabaseReference = FirebaseDatabase.getInstance().getReference()
+        mDatabase.child("vets").child(firebaseUser.getUid()).setValue(user)
+        startActivity(Intent(this, VetHomePageActivity::class.java))
     }
     companion object {
         const val TAG = "TAG"
