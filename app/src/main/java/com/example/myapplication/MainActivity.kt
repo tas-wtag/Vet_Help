@@ -1,18 +1,15 @@
 package com.example.myapplication
 
+import android.content.Intent
+import android.os.Bundle
+import android.text.TextUtils
+import android.view.View
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
-import androidx.appcompat.app.AlertDialog;
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 
-import com.google.firebase.auth.FirebaseAuth;
 
 class MainActivity : AppCompatActivity() {
     lateinit var signUpAsVet: Button
@@ -58,22 +55,40 @@ class MainActivity : AppCompatActivity() {
             mfAuth!!.signInWithEmailAndPassword(memail, mpassword).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Logged in Successfully", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(applicationContext, VetHomePageActivity::class.java))
+                    val database = FirebaseDatabase.getInstance()
+                    val myRef = database.getReference("vets")
+
+                    myRef.addValueEventListener(object : ValueEventListener {
+                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                            if(dataSnapshot.exists()){
+                                startActivity(Intent(applicationContext, VetHomePageActivity::class.java))
+                            }
+
+                            else{
+                                startActivity(Intent(applicationContext, PetHomePageActivity::class.java))
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+
+                        }
+                    })
+
                 } else {
                     Toast.makeText(
-                        this,
-                        "Error ! " + task.exception!!.message,
-                        Toast.LENGTH_SHORT
+                            this,
+                            "Error ! " + task.exception!!.message,
+                            Toast.LENGTH_SHORT
                     ).show()
                     mProgressBar.setVisibility(View.GONE)
                 }
             }
         })
-
         signUpAsVet.setOnClickListener(View.OnClickListener {
             val intent = Intent(this, VetSignUpActivity::class.java)
             flag = true
-            intent.putExtra("flag",flag)
+            intent.putExtra("flag", flag)
             startActivity(intent)
         })
 
@@ -92,18 +107,18 @@ class MainActivity : AppCompatActivity() {
                 val mail = resetMail.text.toString()
                 mfAuth!!.sendPasswordResetEmail(mail).addOnSuccessListener {
                     Toast.makeText(
-                        this,
-                        "Reset Link Sent To Your Email.",
-                        Toast.LENGTH_SHORT
+                            this,
+                            "Reset Link Sent To Your Email.",
+                            Toast.LENGTH_SHORT
                     ).show()
                 }
-                    .addOnFailureListener { e ->
-                        Toast.makeText(
-                            this,
-                            "Error ! Reset Link is Not Sent" + e.message,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(
+                                    this,
+                                    "Error ! Reset Link is Not Sent" + e.message,
+                                    Toast.LENGTH_SHORT
+                            ).show()
+                        }
             }
             passwordResetDialog.setNegativeButton("No") { dialog, which ->
                 // close the dialog
