@@ -30,7 +30,7 @@ class PetHomePageActivity: AppCompatActivity() {
         recyclerView.setLayoutManager(LinearLayoutManager(this))
 
         list = ArrayList()
-        adapter = MyAdapter(this, list)
+        adapter = MyAdapter(this, list!!)
 
         recyclerView.setAdapter(adapter)
 
