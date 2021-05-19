@@ -56,12 +56,12 @@ class MainActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Logged in Successfully", Toast.LENGTH_SHORT).show()
                     val database = FirebaseDatabase.getInstance()
-                    val myRef = database.getReference("vets")
+                    val myRef = database.getReference("vets").child(memail.split("@").toTypedArray()[0])
 
                     myRef.addValueEventListener(object : ValueEventListener {
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-                            if(dataSnapshot.exists()){
+                            if(!!dataSnapshot.exists()){
                                 startActivity(Intent(applicationContext, VetHomePageActivity::class.java))
                             }
 
@@ -69,9 +69,7 @@ class MainActivity : AppCompatActivity() {
                                 startActivity(Intent(applicationContext, PetHomePageActivity::class.java))
                             }
                         }
-
                         override fun onCancelled(error: DatabaseError) {
-
                         }
                     })
 

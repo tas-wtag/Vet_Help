@@ -13,6 +13,7 @@
         <activity android:name=".VetSignUpActivity" />
         <activity android:name=".PetOwnerSignUpActivity" />
         <activity android:name=".VetHomePageActivity" />
+        <activity android:name=".PetHomePageActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

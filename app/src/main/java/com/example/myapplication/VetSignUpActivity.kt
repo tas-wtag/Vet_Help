@@ -26,15 +26,11 @@ class VetSignUpActivity : AppCompatActivity() {
     var fAuth: FirebaseAuth? = null
     lateinit var progressBar: ProgressBar
     var fStore: FirebaseFirestore? = null
-    //var rootNode: FirebaseDatabase ?=null
-    //var ref: DatabaseReference?=null
     var userID: String? = null
 
 
 
     data class User(val username: String? = null, val email: String? = null) {
-        // Null default values create a no-argument default constructor, which is needed
-        // for deserialization from a DataSnapshot.
     }
 
 
@@ -52,10 +48,6 @@ class VetSignUpActivity : AppCompatActivity() {
         fStore = FirebaseFirestore.getInstance()
         progressBar = findViewById(R.id.progressBar)
 
-       /* if (fAuth!!.currentUser != null) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }*/
         vRegister.setOnClickListener(OnClickListener {
             val emailVet = vEmail.getText().toString().trim { it <= ' ' }
             val passwordVet = vPassword.getText().toString().trim { it <= ' ' }
