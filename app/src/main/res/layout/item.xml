@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_margin="7dp"
     android:padding="10dp"
     app:cardBackgroundColor="#FDEDEC"
     app:cardCornerRadius="10dp"
@@ -25,7 +25,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Email :"
-                android:textSize="20sp"
+                android:textColor="#000000"
+                android:textSize="23sp"
                 android:textStyle="bold" />
 
 
@@ -35,9 +36,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
-                android:layout_weight="1"
                 android:text="dummy@gmail.com"
-                android:textSize="17sp"
+                android:textColor="#000000"
+                android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -52,7 +53,8 @@
                 android:layout_height="wrap_content"
 
                 android:text="Name :"
-                android:textSize="20sp"
+                android:textColor="#000000"
+                android:textSize="23sp"
                 android:textStyle="bold" />
 
 
@@ -62,10 +64,28 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
-                android:layout_weight="1"
                 android:text="dummy"
-                android:textSize="17sp"
+                android:textColor="#000000"
+                android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                android:layout_weight="1"
+                android:text="request an Appointment"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                app:backgroundTint="#C39491" />
+        </LinearLayout>
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>
