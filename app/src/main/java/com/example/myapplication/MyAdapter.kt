@@ -20,11 +20,9 @@ class MyAdapter(var context: Context, var mList: ArrayList<Model>) : RecyclerVie
         holder.username.text = model.username
         holder.email.text = model.email
     }
-
     override fun getItemCount(): Int {
         return mList.size
     }
-
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var username: TextView
         var email: TextView
