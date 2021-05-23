@@ -33,6 +33,10 @@ class VetSignUpActivity : AppCompatActivity() {
     data class User(val username: String? = null, val email: String? = null) {
     }
 
+    class User2(name: String, email: String?) {
+
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -126,6 +130,7 @@ class VetSignUpActivity : AppCompatActivity() {
         if (email != null && email.contains("@")) {
             username = email.split("@").toTypedArray()[0]
         }
+
         val user = User(username, email)
         val mDatabase: DatabaseReference = FirebaseDatabase.getInstance().getReference()
         mDatabase.child("vets").child(firebaseUser.getUid()).setValue(user)

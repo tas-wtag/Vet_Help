@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +14,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 
-class PetHomePageActivity: AppCompatActivity() {
+class PetHomePageActivity : AppCompatActivity() {
 
     lateinit var recyclerView: RecyclerView
     val database = FirebaseDatabase.getInstance()
@@ -30,7 +31,7 @@ class PetHomePageActivity: AppCompatActivity() {
         recyclerView.setLayoutManager(LinearLayoutManager(this))
 
         list = ArrayList()
-        adapter = MyAdapter(this, list!!)
+        adapter = MyAdapter(this, list!!, { model -> itemClicked(model) })
 
         recyclerView.setAdapter(adapter)
 
@@ -44,9 +45,12 @@ class PetHomePageActivity: AppCompatActivity() {
                 }
                 adapter!!.notifyDataSetChanged()
             }
-
             override fun onCancelled(error: DatabaseError) {}
         })
+    }
+
+    fun itemClicked(model: Model) {
+        Toast.makeText(this, "msg shown"+model.email, Toast.LENGTH_LONG).show()
     }
 
     fun logout(view: View?) {
@@ -55,5 +59,3 @@ class PetHomePageActivity: AppCompatActivity() {
         startActivity(intent)
     }
 }
-
-

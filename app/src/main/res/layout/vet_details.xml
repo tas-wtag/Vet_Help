@@ -76,7 +76,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/button_"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
@@ -84,7 +84,8 @@
                 android:text="request an Appointment"
                 android:textColor="#000000"
                 android:textStyle="bold"
-                app:backgroundTint="#C39491" />
+                android:backgroundTint="@color/button_background_color" />
+
         </LinearLayout>
     </LinearLayout>
 
