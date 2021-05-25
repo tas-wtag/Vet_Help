@@ -28,10 +28,8 @@ class VetSignUpActivity : AppCompatActivity() {
     var fStore: FirebaseFirestore? = null
     var userID: String? = null
 
-
-
-    data class User(val username: String? = null, val email: String? = null) {
-    }
+    data class User(val username: String? = null, val email: String? = null) {}
+    data class UserAppointment(val emailPet: String? = null, val emailVet: String? = null) {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

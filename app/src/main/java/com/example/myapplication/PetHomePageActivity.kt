@@ -21,8 +21,6 @@ class PetHomePageActivity : AppCompatActivity() {
     private var adapter: MyAdapter? = null
     private var list: ArrayList<Model>? = null
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pet_homepage)
@@ -60,16 +58,12 @@ class PetHomePageActivity : AppCompatActivity() {
             userID = userID.split("@").toTypedArray()[1]
         }
         val emailVet: String? =model.email
-        val user = VetSignUpActivity.User(emailPet as String?, emailVet)
+        val user = VetSignUpActivity.UserAppointment(emailPet as String?, emailVet)
         val mDatabase: DatabaseReference = FirebaseDatabase.getInstance().getReference()
         mDatabase.child("appointments").child(userID).setValue(user)
 
         startActivity(Intent(this, VetHomePageActivity::class.java))
-
-        Toast.makeText(this, "msg shown"+model.email, Toast.LENGTH_LONG).show()
     }
-
-
         fun logout(view: View?) {
             FirebaseAuth.getInstance().signOut() //logout
             val intent = Intent(this, MainActivity::class.java)
