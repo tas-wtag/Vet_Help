@@ -33,11 +33,6 @@ class VetSignUpActivity : AppCompatActivity() {
     data class User(val username: String? = null, val email: String? = null) {
     }
 
-    class User2(name: String, email: String?) {
-
-    }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vet_signup)
@@ -72,12 +67,9 @@ class VetSignUpActivity : AppCompatActivity() {
             }
             progressBar.setVisibility(VISIBLE)
 
-            // register the user in firebase
             fAuth!!.createUserWithEmailAndPassword(emailVet, passwordVet)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-
-                            // send verification link
                             val fuser = fAuth!!.currentUser
                             fuser!!.sendEmailVerification().addOnSuccessListener {
                                 Toast.makeText(
@@ -121,7 +113,6 @@ class VetSignUpActivity : AppCompatActivity() {
                         }
                     }
         })
-
     }
 
     private fun onAuthSuccess(firebaseUser: FirebaseUser) {

@@ -8,10 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class PetHomePageActivity : AppCompatActivity() {
@@ -22,6 +21,8 @@ class PetHomePageActivity : AppCompatActivity() {
     private var adapter: MyAdapter? = null
     private var list: ArrayList<Model>? = null
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pet_homepage)
@@ -31,7 +32,7 @@ class PetHomePageActivity : AppCompatActivity() {
         recyclerView.setLayoutManager(LinearLayoutManager(this))
 
         list = ArrayList()
-        adapter = MyAdapter(this, list!!, { model -> itemClicked(model) })
+        adapter = MyAdapter(this, list!!) { model -> itemClicked(model) }
 
         recyclerView.setAdapter(adapter)
 
@@ -50,12 +51,31 @@ class PetHomePageActivity : AppCompatActivity() {
     }
 
     fun itemClicked(model: Model) {
+
+        val bundle: Bundle? = intent.extras
+        val emailPet = bundle?.get("emailPet")
+        val userId: FirebaseUser = bundle?.get("userId") as FirebaseUser
+        var userID:String=userId.toString()
+        if (userID.contains("@")) {
+            userID = userID.split("@").toTypedArray()[1]
+        }
+        val emailVet: String? =model.email
+        val user = VetSignUpActivity.User(emailPet as String?, emailVet)
+        val mDatabase: DatabaseReference = FirebaseDatabase.getInstance().getReference()
+        mDatabase.child("appointments").child(userID).setValue(user)
+
+        startActivity(Intent(this, VetHomePageActivity::class.java))
+
         Toast.makeText(this, "msg shown"+model.email, Toast.LENGTH_LONG).show()
     }
 
-    fun logout(view: View?) {
-        FirebaseAuth.getInstance().signOut() //logout
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+
+        fun logout(view: View?) {
+            FirebaseAuth.getInstance().signOut() //logout
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
-}
+
+
+

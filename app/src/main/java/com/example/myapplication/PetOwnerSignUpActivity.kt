@@ -62,7 +62,7 @@ class PetOwnerSignUpActivity :  AppCompatActivity(){
                 pPassword.setError("Password Must be >= 6 Characters")
                 return@OnClickListener
             }
-            pProgressBar.setVisibility(View.VISIBLE)
+            pProgressBar.setVisibility(VISIBLE)
 
             pfAuth!!.createUserWithEmailAndPassword(emailPO, passwordPO)
                     .addOnCompleteListener { task ->

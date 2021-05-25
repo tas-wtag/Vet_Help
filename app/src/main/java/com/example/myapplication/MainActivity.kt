@@ -8,6 +8,7 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 
 
@@ -38,6 +39,9 @@ class MainActivity : AppCompatActivity() {
         mLoginBtn.setOnClickListener(View.OnClickListener {
             val memail = mEmail.getText().toString().trim { it <= ' ' }
             val mpassword = mPassword.text.toString().trim { it <= ' ' }
+
+
+
             if (TextUtils.isEmpty(memail)) {
                 mEmail.setError("Email is Required.")
                 return@OnClickListener
@@ -52,21 +56,24 @@ class MainActivity : AppCompatActivity() {
             }
             mProgressBar.setVisibility(View.VISIBLE)
 
+
+
             mfAuth!!.signInWithEmailAndPassword(memail, mpassword).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Logged in Successfully", Toast.LENGTH_SHORT).show()
                     val database = FirebaseDatabase.getInstance()
                     val myRef = database.getReference("vets").child(memail.split("@").toTypedArray()[0])
-
+                    val userId: FirebaseUser? =task.getResult()?.getUser()
                     myRef.addValueEventListener(object : ValueEventListener {
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-                            if(!!dataSnapshot.exists()){
+                            if (!!dataSnapshot.exists()) {
                                 startActivity(Intent(applicationContext, VetHomePageActivity::class.java))
-                            }
-
-                            else{
-                                startActivity(Intent(applicationContext, PetHomePageActivity::class.java))
+                            } else {
+                                intent= Intent(applicationContext, PetHomePageActivity::class.java)
+                                intent.putExtra("emailPet", memail)
+                                intent.putExtra("userId",userId)
+                                startActivity(intent)
                             }
                         }
                         override fun onCancelled(error: DatabaseError) {
@@ -82,6 +89,8 @@ class MainActivity : AppCompatActivity() {
                     mProgressBar.setVisibility(View.GONE)
                 }
             }
+
+
         })
         signUpAsVet.setOnClickListener(View.OnClickListener {
             val intent = Intent(this, VetSignUpActivity::class.java)
