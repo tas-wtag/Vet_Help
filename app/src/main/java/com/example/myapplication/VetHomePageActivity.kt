@@ -21,6 +21,12 @@ class VetHomePageActivity: AppCompatActivity() {
         setContentView(R.layout.activity_vet_homepage)
 
 
-}}
+}
+    fun logout(view: View?) {
+        FirebaseAuth.getInstance().signOut() //logout
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+    }
+}
 
 
