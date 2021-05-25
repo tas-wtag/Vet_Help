@@ -40,8 +40,6 @@ class MainActivity : AppCompatActivity() {
             val memail = mEmail.getText().toString().trim { it <= ' ' }
             val mpassword = mPassword.text.toString().trim { it <= ' ' }
 
-
-
             if (TextUtils.isEmpty(memail)) {
                 mEmail.setError("Email is Required.")
                 return@OnClickListener
@@ -56,20 +54,17 @@ class MainActivity : AppCompatActivity() {
             }
             mProgressBar.setVisibility(View.VISIBLE)
 
-
-
             mfAuth!!.signInWithEmailAndPassword(memail, mpassword).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Logged in Successfully", Toast.LENGTH_SHORT).show()
                     val database = FirebaseDatabase.getInstance()
-                    val myRef = database.getReference("vets").child(memail.split("@").toTypedArray()[0])
-                    val userId: FirebaseUser? =task.getResult()?.getUser()
+                    val myRef = database.getReference("vets")
                     myRef.addValueEventListener(object : ValueEventListener {
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
-
                             if (!!dataSnapshot.exists()) {
                                 startActivity(Intent(applicationContext, VetHomePageActivity::class.java))
                             } else {
+                                val userId: FirebaseUser? =task.getResult()?.getUser()
                                 intent= Intent(applicationContext, PetHomePageActivity::class.java)
                                 intent.putExtra("emailPet", memail)
                                 intent.putExtra("userId",userId)

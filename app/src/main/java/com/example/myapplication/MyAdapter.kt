@@ -10,8 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.MyAdapter.MyViewHolder
 import java.util.*
 
-
-class MyAdapter(var context: Context, var mList: ArrayList<Model>, private val clickListener: (Model) -> Unit) : RecyclerView.Adapter<MyViewHolder>() {
+class MyAdapter(var context: Context, var mList: ArrayList<Model>,
+                private val clickListener: (Model) -> Unit) :
+        RecyclerView.Adapter<MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val v = LayoutInflater.from(context).inflate(R.layout.vet_details, parent, false)
