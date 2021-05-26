@@ -119,7 +119,6 @@ class VetSignUpActivity : AppCompatActivity() {
         if (email != null && email.contains("@")) {
             username = email.split("@").toTypedArray()[0]
         }
-
         val user = User(username, email)
         val mDatabase: DatabaseReference = FirebaseDatabase.getInstance().getReference()
         mDatabase.child("vets").child(firebaseUser.getUid()).setValue(user)

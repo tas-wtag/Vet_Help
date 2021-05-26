@@ -57,7 +57,6 @@ class PetHomePageActivity : AppCompatActivity() {
         val user = VetSignUpActivity.UserAppointment(emailPet as String?, emailVet)
         val mDatabase: DatabaseReference = FirebaseDatabase.getInstance().getReference()
         mDatabase.child("appointments").child(userId).setValue(user)
-
         startActivity(Intent(this, AppointmentResponseActivity::class.java))
     }
         fun logout(view: View?) {
