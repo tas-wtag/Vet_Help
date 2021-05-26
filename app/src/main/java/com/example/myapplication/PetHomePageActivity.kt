@@ -53,15 +53,15 @@ class PetHomePageActivity : AppCompatActivity() {
 
         val bundle: Bundle? = intent.extras
         val emailPet = bundle?.get("emailPet")
-        val userId: FirebaseUser = bundle?.get("userId") as FirebaseUser
-        var userID:String=userId.toString()
-        if (userID.contains("@")) {
-            userID = userID.split("@").toTypedArray()[1]
-        }
+        val userId = bundle?.get("userId").toString()
+        //var userID:String=userId.toString()
+       // if (userID.contains("@")) {
+           // userID = userID.split("@").toTypedArray()[1]
+       // }
         val emailVet: String? =model.email
         val user = VetSignUpActivity.UserAppointment(emailPet as String?, emailVet)
         val mDatabase: DatabaseReference = FirebaseDatabase.getInstance().getReference()
-        mDatabase.child("appointments").child(userID).setValue(user)
+        mDatabase.child("appointments").child(userId).setValue(user)
 
         startActivity(Intent(this, VetHomePageActivity::class.java))
     }

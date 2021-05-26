@@ -58,22 +58,25 @@ class MainActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Logged in Successfully", Toast.LENGTH_SHORT).show()
                     val database = FirebaseDatabase.getInstance()
-                    val myRef = database.getReference("vets")
-                    myRef.addValueEventListener(object : ValueEventListener {
-                        override fun onDataChange(dataSnapshot: DataSnapshot) {
-                            if (!!dataSnapshot.exists()) {
-                                startActivity(Intent(applicationContext, VetHomePageActivity::class.java))
-                            } else {
-                                val userId: FirebaseUser? =task.getResult()?.getUser()
-                                intent= Intent(applicationContext, PetHomePageActivity::class.java)
-                                intent.putExtra("emailPet", memail)
-                                intent.putExtra("userId",userId)
-                                startActivity(intent)
+                    val myRef = database.getReference()
+                    task.getResult()?.user?.let { it1 ->
+                        myRef.child("vets").child(it1?.uid).addListenerForSingleValueEvent( object :ValueEventListener{
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                if (snapshot.exists()) {
+                                    startActivity(Intent(applicationContext, VetHomePageActivity::class.java))
+                                } else {
+                                    val userId: String? = task.getResult()?.user?.uid
+                                    intent= Intent(applicationContext, PetHomePageActivity::class.java)
+                                    intent.putExtra("emailPet", memail)
+                                    intent.putExtra("userId",userId)
+                                    startActivity(intent)
+                                }
                             }
-                        }
-                        override fun onCancelled(error: DatabaseError) {
-                        }
-                    })
+
+                            override fun onCancelled(error: DatabaseError) {}
+                        })
+                    }
+
 
                 } else {
                     Toast.makeText(
@@ -84,8 +87,6 @@ class MainActivity : AppCompatActivity() {
                     mProgressBar.setVisibility(View.GONE)
                 }
             }
-
-
         })
         signUpAsVet.setOnClickListener(View.OnClickListener {
             val intent = Intent(this, VetSignUpActivity::class.java)
@@ -123,12 +124,10 @@ class MainActivity : AppCompatActivity() {
                         }
             }
             passwordResetDialog.setNegativeButton("No") { dialog, which ->
-                // close the dialog
             }
             passwordResetDialog.create().show()
         })
 }
-//delete later
        fun logOut(view: View?) {
         FirebaseAuth.getInstance().signOut() //logout
     }
