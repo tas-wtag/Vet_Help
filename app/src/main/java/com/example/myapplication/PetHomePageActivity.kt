@@ -50,23 +50,18 @@ class PetHomePageActivity : AppCompatActivity() {
     }
 
     fun itemClicked(model: Model) {
-
         val bundle: Bundle? = intent.extras
         val emailPet = bundle?.get("emailPet")
         val userId = bundle?.get("userId").toString()
-        //var userID:String=userId.toString()
-       // if (userID.contains("@")) {
-           // userID = userID.split("@").toTypedArray()[1]
-       // }
         val emailVet: String? =model.email
         val user = VetSignUpActivity.UserAppointment(emailPet as String?, emailVet)
         val mDatabase: DatabaseReference = FirebaseDatabase.getInstance().getReference()
         mDatabase.child("appointments").child(userId).setValue(user)
 
-        startActivity(Intent(this, VetHomePageActivity::class.java))
+        startActivity(Intent(this, AppointmentResponseActivity::class.java))
     }
         fun logout(view: View?) {
-            FirebaseAuth.getInstance().signOut() //logout
+            FirebaseAuth.getInstance().signOut()
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }

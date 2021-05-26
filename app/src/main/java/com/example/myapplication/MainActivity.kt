@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
                     val database = FirebaseDatabase.getInstance()
                     val myRef = database.getReference()
                     task.getResult()?.user?.let { it1 ->
-                        myRef.child("vets").child(it1?.uid).addListenerForSingleValueEvent( object :ValueEventListener{
+                        myRef.child("vets").child(it1.uid).addListenerForSingleValueEvent( object :ValueEventListener{
                             override fun onDataChange(snapshot: DataSnapshot) {
                                 if (snapshot.exists()) {
                                     startActivity(Intent(applicationContext, VetHomePageActivity::class.java))
