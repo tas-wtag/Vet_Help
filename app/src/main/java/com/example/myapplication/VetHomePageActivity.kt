@@ -32,10 +32,12 @@ class VetHomePageActivity: AppCompatActivity(){
 
         recyclerView.setAdapter(adapter)
         myReference.addValueEventListener(object : ValueEventListener {
+            val bundle: Bundle? = intent.extras
+            val emailVet = bundle?.get("emailVet")
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (dataSnapshot in snapshot.children) {
                     val appointmentData = dataSnapshot.getValue(AppointmentData::class.java)
-                    if (appointmentData != null) {
+                    if (appointmentData != null && appointmentData.emailVet?.equals(emailVet) == true) {
                         list!!.add(appointmentData)
                     }
                 }

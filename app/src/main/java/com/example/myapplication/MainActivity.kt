@@ -63,7 +63,11 @@ class MainActivity : AppCompatActivity() {
                         myRef.child("vets").child(it1.uid).addListenerForSingleValueEvent( object :ValueEventListener{
                             override fun onDataChange(snapshot: DataSnapshot) {
                                 if (snapshot.exists()) {
-                                    startActivity(Intent(applicationContext, VetHomePageActivity::class.java))
+                                    val userId: String? = task.getResult()?.user?.uid
+                                    intent= Intent(applicationContext, VetHomePageActivity::class.java)
+                                    intent.putExtra("emailVet", memail)
+                                    intent.putExtra("userId",userId)
+                                    startActivity(intent)
                                 } else {
                                     val userId: String? = task.getResult()?.user?.uid
                                     intent= Intent(applicationContext, PetHomePageActivity::class.java)
