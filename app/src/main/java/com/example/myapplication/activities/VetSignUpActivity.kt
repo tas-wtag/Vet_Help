@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View.*
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplication.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
@@ -16,13 +17,13 @@ import java.util.*
 
 
 class VetSignUpActivity : AppCompatActivity() {
-    lateinit var vFirstName: EditText
-    lateinit var vLastName: EditText
-    lateinit var vEmail: EditText
-    lateinit var vPassword: EditText
-    lateinit var vPhone: EditText
-    var vCity: EditText? = null
-    lateinit var vRegister: Button
+    lateinit var vetFirstName: EditText
+    lateinit var vetLastName: EditText
+    lateinit var vetEmail: EditText
+    lateinit var vetPassword: EditText
+    lateinit var vetPhone: EditText
+    var vetCity: EditText? = null
+    lateinit var register: Button
     var fAuth: FirebaseAuth? = null
     lateinit var progressBar: ProgressBar
     var fStore: FirebaseFirestore? = null
@@ -34,33 +35,33 @@ class VetSignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vet_signup)
-        vFirstName = findViewById(R.id.enterFirstNameVet)
-        vLastName = findViewById(R.id.enterLastNameVet)
-        vCity = findViewById(R.id.enterCity)
-        vEmail = findViewById(R.id.enterEmailAddressVet)
-        vPassword = findViewById(R.id.enterPasswordVet)
-        vPhone = findViewById(R.id.editTextPhone)
-        vRegister = findViewById(R.id.register)
+        vetFirstName = findViewById(R.id.enterFirstNameVet)
+        vetLastName = findViewById(R.id.enterLastNameVet)
+        vetCity = findViewById(R.id.enterCity)
+        vetEmail = findViewById(R.id.enterEmailAddressVet)
+        vetPassword = findViewById(R.id.enterPasswordVet)
+        vetPhone = findViewById(R.id.editTextPhone)
+        register = findViewById(R.id.register)
         fAuth = FirebaseAuth.getInstance()
         fStore = FirebaseFirestore.getInstance()
         progressBar = findViewById(R.id.progressBar)
 
-        vRegister.setOnClickListener(OnClickListener {
-            val emailVet = vEmail.getText().toString().trim { it <= ' ' }
-            val passwordVet = vPassword.getText().toString().trim { it <= ' ' }
-            val firstNameVet = vFirstName.getText().toString()
-            val lastNameVet = vLastName.getText().toString()
-            val phoneVet = vPhone.getText().toString()
+        register.setOnClickListener(OnClickListener {
+            val emailVet = vetEmail.getText().toString().trim { it <= ' ' }
+            val passwordVet = vetPassword.getText().toString().trim { it <= ' ' }
+            val firstNameVet = vetFirstName.getText().toString()
+            val lastNameVet = vetLastName.getText().toString()
+            val phoneVet = vetPhone.getText().toString()
             if (TextUtils.isEmpty(emailVet)) {
-                vEmail.setError("Email is Required.")
+                vetEmail.setError("Email is Required.")
                 return@OnClickListener
             }
             if (TextUtils.isEmpty(passwordVet)) {
-                vPassword.setError("Password is Required.")
+                vetPassword.setError("Password is Required.")
                 return@OnClickListener
             }
             if (passwordVet.length < 6) {
-                vPassword.setError("Password Must be >= 6 Characters")
+                vetPassword.setError("Password Must be >= 6 Characters")
                 return@OnClickListener
             }
             progressBar.setVisibility(VISIBLE)

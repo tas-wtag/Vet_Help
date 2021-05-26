@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,20 +7,20 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplication.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 
 
 class MainActivity : AppCompatActivity() {
     lateinit var signUpAsVet: Button
     lateinit var signUpAsPetOwner: Button
-    lateinit var mEmail: EditText
-    lateinit var mPassword: EditText
-    lateinit var mLoginBtn: Button
-    lateinit var mProgressBar: ProgressBar
+    lateinit var logInEmail: EditText
+    lateinit var logInPassword: EditText
+    lateinit var loginBtn: Button
+    lateinit var progressBar: ProgressBar
     lateinit var forgotTextLink: TextView
-    var mfAuth: FirebaseAuth? = null
+    var fAuth: FirebaseAuth? = null
     var flag:Boolean?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,32 +29,32 @@ class MainActivity : AppCompatActivity() {
 
         signUpAsVet=findViewById(R.id.signUpAsVet)
         signUpAsPetOwner=findViewById(R.id.signUpAsPetOwner)
-        mEmail = findViewById(R.id.email)
-        mPassword = findViewById(R.id.password)
-        mProgressBar = findViewById(R.id.progressBarMain)
-        mfAuth = FirebaseAuth.getInstance()
-        mLoginBtn = findViewById(R.id.login)
+        logInEmail = findViewById(R.id.email)
+        logInPassword = findViewById(R.id.password)
+        progressBar = findViewById(R.id.progressBarMain)
+        fAuth = FirebaseAuth.getInstance()
+        loginBtn = findViewById(R.id.login)
         forgotTextLink = findViewById(R.id.forgotPassword)
 
-        mLoginBtn.setOnClickListener(View.OnClickListener {
-            val memail = mEmail.getText().toString().trim { it <= ' ' }
-            val mpassword = mPassword.text.toString().trim { it <= ' ' }
+        loginBtn.setOnClickListener(View.OnClickListener {
+            val logInEmail = logInEmail.getText().toString().trim { it <= ' ' }
+            val logInPassword = logInPassword.text.toString().trim { it <= ' ' }
 
-            if (TextUtils.isEmpty(memail)) {
-                mEmail.setError("Email is Required.")
+            if (TextUtils.isEmpty(logInEmail)) {
+                this.logInEmail.setError("Email is Required.")
                 return@OnClickListener
             }
-            if (TextUtils.isEmpty(mpassword)) {
-                mPassword.setError("Password is Required.")
+            if (TextUtils.isEmpty(logInPassword)) {
+                this.logInPassword.setError("Password is Required.")
                 return@OnClickListener
             }
-            if (mpassword.length < 6) {
-                mPassword.setError("Password Must be >= 6 Characters")
+            if (logInPassword.length < 6) {
+                this.logInPassword.setError("Password Must be >= 6 Characters")
                 return@OnClickListener
             }
-            mProgressBar.setVisibility(View.VISIBLE)
+            progressBar.setVisibility(View.VISIBLE)
 
-            mfAuth!!.signInWithEmailAndPassword(memail, mpassword).addOnCompleteListener { task ->
+            fAuth!!.signInWithEmailAndPassword(logInEmail, logInPassword).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Logged in Successfully", Toast.LENGTH_SHORT).show()
                     val database = FirebaseDatabase.getInstance()
@@ -65,13 +65,13 @@ class MainActivity : AppCompatActivity() {
                                 if (snapshot.exists()) {
                                     val userId: String? = task.getResult()?.user?.uid
                                     intent= Intent(applicationContext, VetHomePageActivity::class.java)
-                                    intent.putExtra("emailVet", memail)
+                                    intent.putExtra("emailVet", logInEmail)
                                     intent.putExtra("userId",userId)
                                     startActivity(intent)
                                 } else {
                                     val userId: String? = task.getResult()?.user?.uid
                                     intent= Intent(applicationContext, PetHomePageActivity::class.java)
-                                    intent.putExtra("emailPet", memail)
+                                    intent.putExtra("emailPet", logInEmail)
                                     intent.putExtra("userId",userId)
                                     startActivity(intent)
                                 }
@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity() {
                             "Error ! " + task.exception!!.message,
                             Toast.LENGTH_SHORT
                     ).show()
-                    mProgressBar.setVisibility(View.GONE)
+                    progressBar.setVisibility(View.GONE)
                 }
             }
         })
@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
             passwordResetDialog.setView(resetMail)
             passwordResetDialog.setPositiveButton("Yes") { dialog, which -> // extract the email and send reset link
                 val mail = resetMail.text.toString()
-                mfAuth!!.sendPasswordResetEmail(mail).addOnSuccessListener {
+                fAuth!!.sendPasswordResetEmail(mail).addOnSuccessListener {
                     Toast.makeText(
                             this,
                             "Reset Link Sent To Your Email.",
@@ -131,9 +131,6 @@ class MainActivity : AppCompatActivity() {
             }
             passwordResetDialog.create().show()
         })
-}
-       fun logOut(view: View?) {
-        FirebaseAuth.getInstance().signOut() //logout
     }
 }
 

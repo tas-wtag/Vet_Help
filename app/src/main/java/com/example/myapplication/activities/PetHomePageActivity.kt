@@ -1,17 +1,16 @@
-package com.example.myapplication
+package com.example.myapplication.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.R
+import com.example.myapplication.adapters.MyAdapter
+import com.example.myapplication.models.VetDataModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-import com.google.firebase.firestore.FirebaseFirestore
 
 
 class PetHomePageActivity : AppCompatActivity() {
@@ -20,7 +19,7 @@ class PetHomePageActivity : AppCompatActivity() {
     val database = FirebaseDatabase.getInstance()
     val myRef = database.getReference("vets")
     private var adapter: MyAdapter? = null
-    private var list: ArrayList<Model>? = null
+    private var list: ArrayList<VetDataModel>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +37,7 @@ class PetHomePageActivity : AppCompatActivity() {
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (dataSnapshot in snapshot.children) {
-                    val model = dataSnapshot.getValue(Model::class.java)
+                    val model = dataSnapshot.getValue(VetDataModel::class.java)
                     if (model != null) {
                         list!!.add(model)
                     }
@@ -49,7 +48,7 @@ class PetHomePageActivity : AppCompatActivity() {
         })
     }
 
-    fun itemClicked(model: Model) {
+    fun itemClicked(model: VetDataModel) {
         val bundle: Bundle? = intent.extras
         val emailPet = bundle?.get("emailPet")
         val userId = bundle?.get("userId").toString()

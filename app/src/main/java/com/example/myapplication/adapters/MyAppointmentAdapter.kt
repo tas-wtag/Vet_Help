@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.R
+import com.example.myapplication.models.AppointmentDataModel
 import java.util.ArrayList
 
 class MyAppointmentAdapter(var context: Context,
-                           var appointmentList: ArrayList<AppointmentData>,
-                           private val clickListener: (AppointmentData) -> Unit) :
+                           var appointmentList: ArrayList<AppointmentDataModel>,
+                           private val clickListener: (AppointmentDataModel) -> Unit) :
         RecyclerView.Adapter<MyAppointmentAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val v = LayoutInflater.from(context).inflate(R.layout.appointment_details, parent, false)
@@ -26,8 +28,8 @@ class MyAppointmentAdapter(var context: Context,
         var emailVet: TextView
         var emailPet: TextView
         var button: Button
-        var appointmentData: AppointmentData
-        fun bind(appointmentData: AppointmentData) {
+        var appointmentData: AppointmentDataModel
+        fun bind(appointmentData: AppointmentDataModel) {
             this.appointmentData = appointmentData
         }
 
@@ -35,7 +37,7 @@ class MyAppointmentAdapter(var context: Context,
             emailVet = itemView.findViewById(R.id.dummyEmailItemVet)
             emailPet = itemView.findViewById(R.id.dummyNameItemPet)
             button = itemView.findViewById(R.id.confirmButton)
-            appointmentData=AppointmentData()
+            appointmentData= AppointmentDataModel()
             button.setOnClickListener { clickListener(appointmentData) }
         }
     }

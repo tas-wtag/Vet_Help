@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.MyAdapter.MyViewHolder
+import com.example.myapplication.R
+import com.example.myapplication.adapters.MyAdapter.MyViewHolder
+import com.example.myapplication.models.VetDataModel
 import java.util.*
 
-class MyAdapter(var context: Context, var mList: ArrayList<Model>,
-                private val clickListener: (Model) -> Unit) :
+class MyAdapter(var context: Context, var mList: ArrayList<VetDataModel>,
+                private val clickListener: (VetDataModel) -> Unit) :
         RecyclerView.Adapter<MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -34,8 +36,8 @@ class MyAdapter(var context: Context, var mList: ArrayList<Model>,
         var username: TextView
         var email: TextView
         var button: Button
-        var model: Model
-        fun bind(model: Model) {
+        var model: VetDataModel
+        fun bind(model: VetDataModel) {
             this.model = model
         }
 
@@ -43,7 +45,7 @@ class MyAdapter(var context: Context, var mList: ArrayList<Model>,
             username = itemView.findViewById(R.id.dummyNameItem)
             email = itemView.findViewById(R.id.dummyEmailItem)
             button = itemView.findViewById(R.id.button_)
-            model=Model()
+            model= VetDataModel()
             button.setOnClickListener { clickListener(model) }
         }
 

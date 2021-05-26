@@ -11,12 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".VetSignUpActivity" />
-        <activity android:name=".PetOwnerSignUpActivity" />
-        <activity android:name=".VetHomePageActivity" />
-        <activity android:name=".PetHomePageActivity" />
-        <activity android:name=".AppointmentResponseActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.VetSignUpActivity" />
+        <activity android:name=".activities.PetOwnerSignUpActivity" />
+        <activity android:name=".activities.VetHomePageActivity" />
+        <activity android:name=".activities.PetHomePageActivity" />
+        <activity android:name=".activities.AppointmentResponseActivity" />
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
