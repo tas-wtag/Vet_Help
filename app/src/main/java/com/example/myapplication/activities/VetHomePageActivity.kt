@@ -5,13 +5,13 @@ import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.FooFragment
-import com.example.myapplication.MainActivity
+import com.example.myapplication.fragment.CalendarFragment
 import com.example.myapplication.R
 import com.example.myapplication.adapters.MyAppointmentAdapter
 import com.example.myapplication.models.AppointmentDataModel
@@ -65,9 +65,10 @@ class VetHomePageActivity: AppCompatActivity(){
 
     private fun itemClicked(appointmentData: AppointmentDataModel) {
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.your_placeholder, FooFragment())
+        ft.replace(R.id.your_placeholder, CalendarFragment())
         ft.commit()
         recyclerView.visibility=View.GONE
+
         val date = OnDateSetListener { View, year, monthOfYear, dayOfMonth ->
             myCalendar.set(Calendar.YEAR, year)
             myCalendar.set(Calendar.MONTH, monthOfYear)
@@ -76,12 +77,20 @@ class VetHomePageActivity: AppCompatActivity(){
         }
         DatePickerDialog(this, date, myCalendar[Calendar.YEAR], myCalendar[Calendar.MONTH],
                 myCalendar[Calendar.DAY_OF_MONTH]).show()
+
     }
     private fun updateLabel() {
-        val edittext = findViewById<View>(R.id.Birthday) as EditText
-        val myFormat = "MM/dd/yy" //In which you need put here
+        val edittext = findViewById<View>(R.id.AppointmentDate) as EditText
+        val myFormat = "MM/dd/yy"
         val sdf = SimpleDateFormat(myFormat, Locale.US)
         edittext.setText(sdf.format(myCalendar.getTime()))
+
+        val confirmBtn:Button?=findViewById(R.id.confirmBtn)
+        confirmBtn?.setOnClickListener(View.OnClickListener {
+            intent= Intent(applicationContext, MainActivity::class.java)
+            intent.putExtra("time", myCalendar.getTime())
+            startActivity(intent)
+        })
     }
 
     fun logout(view: View?) {

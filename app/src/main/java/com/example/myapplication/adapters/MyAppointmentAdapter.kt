@@ -36,7 +36,7 @@ class MyAppointmentAdapter(var context: Context,
         init {
             emailVet = itemView.findViewById(R.id.dummyEmailItemVet)
             emailPet = itemView.findViewById(R.id.dummyNameItemPet)
-            button = itemView.findViewById(R.id.confirmButton)
+            button = itemView.findViewById(R.id.confirmButton2)
             appointmentData= AppointmentDataModel()
             button.setOnClickListener { clickListener(appointmentData) }
         }

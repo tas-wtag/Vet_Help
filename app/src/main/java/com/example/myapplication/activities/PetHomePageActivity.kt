@@ -3,10 +3,10 @@ package com.example.myapplication.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.adapters.MyAdapter
 import com.example.myapplication.models.VetDataModel
@@ -25,11 +25,15 @@ class PetHomePageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pet_homepage)
-
+        val checkReqBtn:Button=findViewById(R.id.checkReq)
         recyclerView = findViewById(R.id.recycleview)
         recyclerView.setHasFixedSize(true)
         recyclerView.setLayoutManager(LinearLayoutManager(this))
 
+        checkReqBtn.setOnClickListener(View.OnClickListener {
+            intent= Intent(applicationContext, AppointmentResponseActivity::class.java)
+            startActivity(intent)
+        })
         list = ArrayList()
         adapter = MyAdapter(this, list!!) { model -> itemClicked(model) }
 
