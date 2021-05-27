@@ -83,8 +83,6 @@ class MainActivity : AppCompatActivity() {
                             override fun onCancelled(error: DatabaseError) {}
                         })
                     }
-
-
                 } else {
                     Toast.makeText(
                             this,

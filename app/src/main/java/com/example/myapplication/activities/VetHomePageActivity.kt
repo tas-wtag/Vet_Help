@@ -18,7 +18,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-
 class VetHomePageActivity: AppCompatActivity(){
     lateinit var recyclerView: RecyclerView
     val database = FirebaseDatabase.getInstance()
@@ -60,6 +59,7 @@ class VetHomePageActivity: AppCompatActivity(){
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
         ft.replace(R.id.your_placeholder, FooFragment())
         ft.commit()
+        recyclerView.visibility=View.GONE
     }
 
     fun logout(view: View?) {

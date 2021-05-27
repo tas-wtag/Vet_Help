@@ -4,17 +4,11 @@
 android:layout_width="match_parent" android:layout_height="match_parent"
 android:orientation="vertical" >
 
-<TextView
-    android:id="@+id/textView1"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="TextView" />
 
-<Button
-    android:id="@+id/button1"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Button" />
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="532dp" />
 
 </LinearLayout>
 
