@@ -1,8 +1,11 @@
 package com.example.myapplication.activities
 
+import android.app.DatePickerDialog
+import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,9 +20,14 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+
 
 class VetHomePageActivity: AppCompatActivity(){
     lateinit var recyclerView: RecyclerView
+    val myCalendar: Calendar = Calendar.getInstance()
     val database = FirebaseDatabase.getInstance()
     val myReference = database.getReference("appointments")
     private var adapter: MyAppointmentAdapter? = null
@@ -60,6 +68,20 @@ class VetHomePageActivity: AppCompatActivity(){
         ft.replace(R.id.your_placeholder, FooFragment())
         ft.commit()
         recyclerView.visibility=View.GONE
+        val date = OnDateSetListener { View, year, monthOfYear, dayOfMonth ->
+            myCalendar.set(Calendar.YEAR, year)
+            myCalendar.set(Calendar.MONTH, monthOfYear)
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            updateLabel()
+        }
+        DatePickerDialog(this, date, myCalendar[Calendar.YEAR], myCalendar[Calendar.MONTH],
+                myCalendar[Calendar.DAY_OF_MONTH]).show()
+    }
+    private fun updateLabel() {
+        val edittext = findViewById<View>(R.id.Birthday) as EditText
+        val myFormat = "MM/dd/yy" //In which you need put here
+        val sdf = SimpleDateFormat(myFormat, Locale.US)
+        edittext.setText(sdf.format(myCalendar.getTime()))
     }
 
     fun logout(view: View?) {

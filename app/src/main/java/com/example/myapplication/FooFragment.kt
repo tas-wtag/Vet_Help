@@ -11,5 +11,6 @@ class FooFragment : Fragment() {
         return inflater.inflate(R.layout.example_fragment, parent, false)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        
     }
 }
