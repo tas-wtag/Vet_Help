@@ -16,7 +16,7 @@
         <activity android:name=".activities.VetHomePageActivity" />
         <activity android:name=".activities.PetHomePageActivity" />
         <activity android:name=".activities.AppointmentResponseActivity" />
-        <activity android:name=".activities.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

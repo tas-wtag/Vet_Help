@@ -1,4 +1,4 @@
-package com.example.myapplication.activities
+package com.example.myapplication
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,10 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.R
+import com.example.myapplication.activities.PetHomePageActivity
+import com.example.myapplication.activities.PetOwnerSignUpActivity
+import com.example.myapplication.activities.VetHomePageActivity
+import com.example.myapplication.activities.VetSignUpActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
@@ -129,9 +132,7 @@ class MainActivity : AppCompatActivity() {
             passwordResetDialog.create().show()
         })
     }
-
     fun logOut(view: View) {
-
     }
 }
 
