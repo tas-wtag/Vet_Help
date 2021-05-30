@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Pet Care</string>
     <string name="use_this_email_and_password_to_log_in_from_the_next_time">Use This Email and Password to log in from the next time!</string>
     <string name="vet">Vet</string>
     <string name="message">Request Sent!</string>

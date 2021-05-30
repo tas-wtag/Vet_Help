@@ -3,6 +3,7 @@ package com.example.myapplication.activities
 import android.content.Intent
 import android.view.View.*
 import android.os.Bundle
+import android.text.Html
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Button
@@ -34,6 +35,7 @@ class PetOwnerSignUpActivity :  AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_petowner_signup)
+        supportActionBar!!.title = Html.fromHtml("<font color=\"black\">" + "Pet Details"+"</font>")
 
         petOwnerFirstName = findViewById(R.id.enterFirstNamePO)
         petOwnerLastName = findViewById(R.id.enterLastNamePO)

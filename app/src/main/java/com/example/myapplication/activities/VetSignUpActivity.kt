@@ -2,6 +2,7 @@ package com.example.myapplication.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Html
 import android.text.TextUtils
 import android.util.Log
 import android.view.View.*
@@ -35,6 +36,7 @@ class VetSignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vet_signup)
+        supportActionBar!!.title = Html.fromHtml("<font color=\"black\">" + "Vet Details"+"</font>")
         vetFirstName = findViewById(R.id.enterFirstNameVet)
         vetLastName = findViewById(R.id.enterLastNameVet)
         vetCity = findViewById(R.id.enterCity)

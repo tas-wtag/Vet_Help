@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Intent
 import android.os.Bundle
+import android.text.Html
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -12,9 +13,9 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.MainActivity
-import com.example.myapplication.fragment.CalendarFragment
 import com.example.myapplication.R
 import com.example.myapplication.adapters.MyAppointmentAdapter
+import com.example.myapplication.fragment.CalendarFragment
 import com.example.myapplication.models.AppointmentDataModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -36,6 +37,7 @@ class VetHomePageActivity: AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vet_homepage)
+
 
         recyclerView = findViewById(R.id.recycleviewVet)
         recyclerView.setHasFixedSize(true)
@@ -78,7 +80,6 @@ class VetHomePageActivity: AppCompatActivity(){
         }
         DatePickerDialog(this, date, myCalendar[Calendar.YEAR], myCalendar[Calendar.MONTH],
                 myCalendar[Calendar.DAY_OF_MONTH]).show()
-
     }
     private fun updateLabel() {
         val edittext = findViewById<View>(R.id.AppointmentDate) as EditText
@@ -88,7 +89,7 @@ class VetHomePageActivity: AppCompatActivity(){
 
         val confirmBtn:Button?=findViewById(R.id.confirmBtn)
         confirmBtn?.setOnClickListener(View.OnClickListener {
-            intent= Intent(applicationContext, MainActivity::class.java)
+            intent = Intent(applicationContext, MainActivity::class.java)
             intent.putExtra("time", myCalendar.getTime())
             startActivity(intent)
         })
@@ -100,6 +101,3 @@ class VetHomePageActivity: AppCompatActivity(){
         startActivity(intent)
     }
 }
-
-
-
