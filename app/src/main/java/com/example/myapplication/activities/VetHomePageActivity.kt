@@ -38,7 +38,6 @@ class VetHomePageActivity: AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vet_homepage)
 
-
         recyclerView = findViewById(R.id.recycleviewVet)
         recyclerView.setHasFixedSize(true)
         recyclerView.setLayoutManager(LinearLayoutManager(this))
@@ -82,10 +81,10 @@ class VetHomePageActivity: AppCompatActivity(){
                 myCalendar[Calendar.DAY_OF_MONTH]).show()
     }
     private fun updateLabel() {
-        val edittext = findViewById<View>(R.id.AppointmentDate) as EditText
+        val appointmentDate = findViewById<View>(R.id.AppointmentDate) as EditText
         val myFormat = "MM/dd/yy"
         val sdf = SimpleDateFormat(myFormat, Locale.US)
-        edittext.setText(sdf.format(myCalendar.getTime()))
+        appointmentDate.setText(sdf.format(myCalendar.getTime()))
 
         val confirmBtn:Button?=findViewById(R.id.confirmBtn)
         confirmBtn?.setOnClickListener(View.OnClickListener {

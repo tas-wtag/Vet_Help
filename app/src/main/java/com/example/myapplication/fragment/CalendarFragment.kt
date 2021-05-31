@@ -9,7 +9,7 @@ import com.example.myapplication.R
 
 class CalendarFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.example_fragment, parent, false)
+        return inflater.inflate(R.layout.appointment_confirming_fragment, parent, false)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         

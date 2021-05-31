@@ -14,7 +14,7 @@ import java.util.*
 
 class MyAdapter(var context: Context, var mList: ArrayList<VetDataModel>,
                 private val clickListener: (VetDataModel) -> Unit) :
-        RecyclerView.Adapter<MyViewHolder>() {
+    RecyclerView.Adapter<MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val v = LayoutInflater.from(context).inflate(R.layout.vet_details, parent, false)

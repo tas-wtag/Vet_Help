@@ -62,19 +62,22 @@ class MainActivity : AppCompatActivity() {
                     val database = FirebaseDatabase.getInstance()
                     val myRef = database.getReference()
                     task.getResult()?.user?.let { it1 ->
-                        myRef.child("vets").child(it1.uid).addListenerForSingleValueEvent( object :ValueEventListener{
+                        myRef.child("vets").child(it1.uid).addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onDataChange(snapshot: DataSnapshot) {
                                 if (snapshot.exists()) {
                                     val userId: String? = task.getResult()?.user?.uid
-                                    intent= Intent(applicationContext, VetHomePageActivity::class.java)
+                                    intent = Intent(applicationContext, VetHomePageActivity::class.java)
                                     intent.putExtra("emailVet", logInEmail)
-                                    intent.putExtra("userId",userId)
+                                    intent.putExtra("userId", userId)
                                     startActivity(intent)
                                 } else {
                                     val userId: String? = task.getResult()?.user?.uid
                                     intent= Intent(applicationContext, PetHomePageActivity::class.java)
+                                    val bundle = Bundle()
                                     intent.putExtra("emailPet", logInEmail)
-                                    intent.putExtra("userId",userId)
+                                    intent.putExtra("userId", userId)
+                                    val fragobj = VetListFragment()
+                                    fragobj.setArguments(bundle)
                                     startActivity(intent)
                                 }
                             }

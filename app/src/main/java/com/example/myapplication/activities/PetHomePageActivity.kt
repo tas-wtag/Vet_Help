@@ -5,65 +5,40 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
-import com.example.myapplication.adapters.MyAdapter
-import com.example.myapplication.models.VetDataModel
+import com.example.myapplication.VetListFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 
 class PetHomePageActivity : AppCompatActivity() {
 
-    lateinit var recyclerView: RecyclerView
-    val database = FirebaseDatabase.getInstance()
-    val myRef = database.getReference("vets")
-    private var adapter: MyAdapter? = null
-    private var list: ArrayList<VetDataModel>? = null
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pet_homepage)
+
         val checkReqBtn:Button?=findViewById(R.id.checkReq)
-        recyclerView = findViewById(R.id.recycleview)
-        recyclerView.setHasFixedSize(true)
-        recyclerView.setLayoutManager(LinearLayoutManager(this))
+        val showVetListbtn:Button?=findViewById(R.id.buttonVetList)
 
 
-        list = ArrayList()
-        adapter = MyAdapter(this, list!!) { model -> itemClicked(model) }
+        val buttonLogout:Button=findViewById(R.id.buttonVetDetail)
 
-        recyclerView.setAdapter(adapter)
-
-        myRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (dataSnapshot in snapshot.children) {
-                    val model = dataSnapshot.getValue(VetDataModel::class.java)
-                    if (model != null) {
-                        list!!.add(model)
-                    }
-                }
-                adapter!!.notifyDataSetChanged()
-            }
-            override fun onCancelled(error: DatabaseError) {}
-        })
         checkReqBtn?.setOnClickListener(View.OnClickListener {
             intent= Intent(applicationContext, AppointmentResponseActivity::class.java)
             startActivity(intent)
         })
-    }
-
-    fun itemClicked(model: VetDataModel) {
-        val bundle: Bundle? = intent.extras
-        val emailPet = bundle?.get("emailPet")
-        val userId = bundle?.get("userId").toString()
-        val emailVet: String? =model.email
-        val user = VetSignUpActivity.UserAppointment(emailPet as String?, emailVet)
-        val mDatabase: DatabaseReference = FirebaseDatabase.getInstance().getReference()
-        mDatabase.child("appointments").child(userId).setValue(user)
-        startActivity(Intent(this, AppointmentResponseActivity::class.java))
+        showVetListbtn?.setOnClickListener(View.OnClickListener {
+            val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
+            ft.replace(R.id.placeholder2, VetListFragment())
+            ft.commit()
+        })
     }
         fun logout(view: View?) {
             FirebaseAuth.getInstance().signOut()
@@ -71,6 +46,7 @@ class PetHomePageActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
 
 
 
