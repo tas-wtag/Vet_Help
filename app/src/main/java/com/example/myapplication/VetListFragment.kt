@@ -33,19 +33,19 @@ class VetListFragment: Fragment() {
             this.listener = context as FragmentActivity
         }
     }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        list = ArrayList()
-        adapter = MyAdapter(context, list!!) {model -> itemClicked (model as VetDataModel) }
-    }
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.vetlist_fragment, parent, false)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerView = view.findViewById(R.id.recycleView)
+        recyclerView = requireView().findViewById(R.id.recycleView)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.setLayoutManager(LinearLayoutManager(context))
+        list = ArrayList()
+        adapter = MyAdapter(context, list!!) { model -> itemClicked(
+            model as VetDataModel
+        ) }
         recyclerView.setAdapter(adapter)
-
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (dataSnapshot in snapshot.children) {
@@ -58,11 +58,6 @@ class VetListFragment: Fragment() {
             }
             override fun onCancelled(error: DatabaseError) {}
         })
-
-        recyclerView.setHasFixedSize(true)
-        recyclerView.setLayoutManager(LinearLayoutManager(context))
-
-        list = ArrayList()
     }
     fun itemClicked(model: VetDataModel) {
         val emailPet = arguments?.getString("emailPet")
@@ -75,3 +70,4 @@ class VetListFragment: Fragment() {
         startActivity(intent)
     }
 }
+
