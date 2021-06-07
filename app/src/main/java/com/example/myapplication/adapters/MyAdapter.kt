@@ -12,8 +12,11 @@ import com.example.myapplication.adapters.MyAdapter.MyViewHolder
 import com.example.myapplication.models.VetDataModel
 import java.util.*
 
-class MyAdapter(var context: Context, var mList: ArrayList<VetDataModel>,
-                private val clickListener: (VetDataModel) -> Unit) :
+class MyAdapter(
+    var context: Context?,
+    var mList: ArrayList<VetDataModel>,
+    param: (Any) -> Unit,
+) :
     RecyclerView.Adapter<MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -46,7 +49,7 @@ class MyAdapter(var context: Context, var mList: ArrayList<VetDataModel>,
             email = itemView.findViewById(R.id.dummyEmailItem)
             button = itemView.findViewById(R.id.button_)
             model= VetDataModel()
-            button.setOnClickListener { clickListener(model) }
+            button.setOnClickListener { (model) }
         }
 
     }

@@ -44,8 +44,7 @@ class VetHomePageActivity: AppCompatActivity(){
 
         list = ArrayList()
         adapter = MyAppointmentAdapter(this, list!!) { appointmentData -> itemClicked(
-                appointmentData
-        ) }
+                appointmentData) }
 
         recyclerView.setAdapter(adapter)
         myReference.addValueEventListener(object : ValueEventListener {

@@ -5,20 +5,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.fragment.app.Fragment
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.VetListFragment
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import java.lang.reflect.Array.newInstance
 
 
 class PetHomePageActivity : AppCompatActivity() {
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,9 +30,10 @@ class PetHomePageActivity : AppCompatActivity() {
             startActivity(intent)
         })
         showVetListbtn?.setOnClickListener(View.OnClickListener {
-            val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-            ft.replace(R.id.placeholder2, VetListFragment())
-            ft.commit()
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.placeholder2,VetListFragment()).commit()
+            checkReqBtn?.visibility=View.GONE
+            showVetListbtn.visibility=View.GONE
         })
     }
         fun logout(view: View?) {

@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
             passwordResetDialog.setTitle("Reset Password ?")
             passwordResetDialog.setMessage("Enter Your Email To Received Reset Link.")
             passwordResetDialog.setView(resetMail)
-            passwordResetDialog.setPositiveButton("Yes") { dialog, which -> // extract the email and send reset link
+            passwordResetDialog.setPositiveButton("Yes") { dialog, which ->
                 val mail = resetMail.text.toString()
                 fAuth!!.sendPasswordResetEmail(mail).addOnSuccessListener {
                     Toast.makeText(
