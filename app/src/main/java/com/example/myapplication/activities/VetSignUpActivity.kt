@@ -31,7 +31,7 @@ class VetSignUpActivity : AppCompatActivity() {
     var userID: String? = null
 
     data class User(val username: String? = null, val email: String? = null) {}
-    data class UserAppointment(val emailPet: String? = null, val emailVet: String? = null, val isApproved:Boolean) {}
+    data class UserAppointment(val emailPet: String? = null, val emailVet: String? = null, val approved:String?=null) {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.activities.AppointmentResponseActivity
+import com.example.myapplication.activities.PetHomePageActivity
 import com.example.myapplication.activities.VetSignUpActivity
 import com.example.myapplication.adapters.MyAdapter
 import com.example.myapplication.models.VetDataModel
@@ -21,7 +22,6 @@ import com.google.firebase.database.*
 @Suppress("UNREACHABLE_CODE")
 class VetListFragment: Fragment() {
 
-    fun VetListFragment() {}
     lateinit var recyclerView: RecyclerView
     val database = FirebaseDatabase.getInstance()
     private var adapter: MyAdapter? = null
@@ -37,7 +37,6 @@ class VetListFragment: Fragment() {
         }
     }
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? {
-       // var bundle: Bundle? = arguments
         emailPet = arguments?.getString("emailPet")!!
         userId = arguments?.getString("userId").toString()
         return inflater.inflate(R.layout.vetlist_fragment, parent, false)
@@ -67,9 +66,10 @@ class VetListFragment: Fragment() {
     }
     fun itemClicked(model: VetDataModel) {
         val emailVet: String? =model.email
-        val user = VetSignUpActivity.UserAppointment(emailPet, emailVet,false)
+        val approved="false"
+        val user = VetSignUpActivity.UserAppointment(emailPet, emailVet, approved)
         val mDatabase: DatabaseReference = FirebaseDatabase.getInstance().getReference()
         mDatabase.child("appointments").child(userId).setValue(user)
-        val intent = Intent(activity, AppointmentResponseActivity::class.java)
+        val intent = Intent(activity, PetHomePageActivity::class.java)
         startActivity(intent) }
 }
