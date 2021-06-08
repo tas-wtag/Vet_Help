@@ -73,15 +73,11 @@ class MainActivity : AppCompatActivity() {
                                 } else {
                                     val userId: String? = task.getResult()?.user?.uid
                                     intent= Intent(applicationContext, PetHomePageActivity::class.java)
-                                    val bundle = Bundle()
                                     intent.putExtra("emailPet", logInEmail)
                                     intent.putExtra("userId", userId)
-                                    val fragobj = VetListFragment()
-                                    fragobj.setArguments(bundle)
                                     startActivity(intent)
                                 }
                             }
-
                             override fun onCancelled(error: DatabaseError) {}
                         })
                     }

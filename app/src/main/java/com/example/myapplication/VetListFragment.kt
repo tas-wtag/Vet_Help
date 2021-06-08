@@ -20,13 +20,16 @@ import com.google.firebase.database.*
 
 @Suppress("UNREACHABLE_CODE")
 class VetListFragment: Fragment() {
+
+    fun VetListFragment() {}
     lateinit var recyclerView: RecyclerView
     val database = FirebaseDatabase.getInstance()
     private var adapter: MyAdapter? = null
     val myRef = database.getReference("vets")
     private var list: ArrayList<VetDataModel>? = null
     var listener:FragmentActivity?=null
-
+    lateinit var emailPet:String
+    lateinit var userId:String
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is Activity) {
@@ -34,6 +37,9 @@ class VetListFragment: Fragment() {
         }
     }
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? {
+       // var bundle: Bundle? = arguments
+        emailPet = arguments?.getString("emailPet")!!
+        userId = arguments?.getString("userId").toString()
         return inflater.inflate(R.layout.vetlist_fragment, parent, false)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,7 +49,7 @@ class VetListFragment: Fragment() {
         recyclerView.setLayoutManager(LinearLayoutManager(context))
         list = ArrayList()
         adapter = MyAdapter(context, list!!) { model -> itemClicked(
-            model as VetDataModel
+            model
         ) }
         recyclerView.setAdapter(adapter)
         myRef.addValueEventListener(object : ValueEventListener {
@@ -60,14 +66,10 @@ class VetListFragment: Fragment() {
         })
     }
     fun itemClicked(model: VetDataModel) {
-        val emailPet = arguments?.getString("emailPet")
-        val userId = arguments?.getString("userId").toString()
         val emailVet: String? =model.email
-        val user = VetSignUpActivity.UserAppointment(emailPet, emailVet)
+        val user = VetSignUpActivity.UserAppointment(emailPet, emailVet,false)
         val mDatabase: DatabaseReference = FirebaseDatabase.getInstance().getReference()
         mDatabase.child("appointments").child(userId).setValue(user)
         val intent = Intent(activity, AppointmentResponseActivity::class.java)
-        startActivity(intent)
-    }
+        startActivity(intent) }
 }
-

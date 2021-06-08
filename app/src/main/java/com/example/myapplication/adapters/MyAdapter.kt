@@ -15,7 +15,7 @@ import java.util.*
 class MyAdapter(
     var context: Context?,
     var mList: ArrayList<VetDataModel>,
-    param: (Any) -> Unit,
+    var param: (VetDataModel)->Unit
 ) :
     RecyclerView.Adapter<MyViewHolder>() {
 
@@ -49,7 +49,7 @@ class MyAdapter(
             email = itemView.findViewById(R.id.dummyEmailItem)
             button = itemView.findViewById(R.id.button_)
             model= VetDataModel()
-            button.setOnClickListener { (model) }
+            button.setOnClickListener { param(model) }
         }
 
     }

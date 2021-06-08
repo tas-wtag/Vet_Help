@@ -59,7 +59,6 @@ class VetHomePageActivity: AppCompatActivity(){
                 }
                 adapter!!.notifyDataSetChanged()
             }
-
             override fun onCancelled(error: DatabaseError) {}
         })
     }
@@ -92,7 +91,6 @@ class VetHomePageActivity: AppCompatActivity(){
             startActivity(intent)
         })
     }
-
     fun logout(view: View?) {
         FirebaseAuth.getInstance().signOut()
         val intent = Intent(this, MainActivity::class.java)

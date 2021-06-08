@@ -5,33 +5,37 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.VetListFragment
+import com.google.android.gms.dynamic.SupportFragmentWrapper
 import com.google.firebase.auth.FirebaseAuth
-import java.lang.reflect.Array.newInstance
 
 
+@Suppress("DEPRECATION")
 class PetHomePageActivity : AppCompatActivity() {
-
+    val fragmentTransaction= supportFragmentManager.beginTransaction()
+    val myFragment: VetListFragment = VetListFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pet_homepage)
 
         val checkReqBtn:Button?=findViewById(R.id.checkReq)
         val showVetListbtn:Button?=findViewById(R.id.buttonVetList)
-
-
-        val buttonLogout:Button=findViewById(R.id.buttonVetDetail)
+        val bundle: Bundle? = intent.extras
+        val emailPet = bundle?.get("emailPet")
+        val userId= bundle?.get("userId")
 
         checkReqBtn?.setOnClickListener(View.OnClickListener {
             intent= Intent(applicationContext, AppointmentResponseActivity::class.java)
             startActivity(intent)
         })
         showVetListbtn?.setOnClickListener(View.OnClickListener {
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.placeholder2,VetListFragment()).commit()
+            val bundle = Bundle()
+            bundle.putString("emailPet", emailPet as String?)
+            bundle.putString("userId", userId as String?)
+            myFragment.arguments = bundle
+            fragmentTransaction.replace(R.id.placeholder2, myFragment).commit()
             checkReqBtn?.visibility=View.GONE
             showVetListbtn.visibility=View.GONE
         })
