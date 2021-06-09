@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.activities.AppointmentResponseActivity
 import com.example.myapplication.activities.PetHomePageActivity
+import com.example.myapplication.activities.VetHomePageActivity
 import com.example.myapplication.activities.VetSignUpActivity
 import com.example.myapplication.adapters.MyAdapter
 import com.example.myapplication.models.VetDataModel
@@ -71,5 +72,7 @@ class VetListFragment: Fragment() {
         val mDatabase: DatabaseReference = FirebaseDatabase.getInstance().getReference()
         mDatabase.child("appointments").child(userId).setValue(user)
         val intent = Intent(activity, PetHomePageActivity::class.java)
+        val intent2 = Intent(activity, VetHomePageActivity::class.java)
+        intent2.putExtra("userID", userId)
         startActivity(intent) }
 }

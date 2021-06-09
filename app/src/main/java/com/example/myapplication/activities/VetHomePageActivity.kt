@@ -68,7 +68,6 @@ class VetHomePageActivity: AppCompatActivity(){
         ft.replace(R.id.your_placeholder, CalendarFragment())
         ft.commit()
         recyclerView.visibility=View.GONE
-        val emailVet: String? =appointmentData.emailVet
         val date = OnDateSetListener { View, year, monthOfYear, dayOfMonth ->
             myCalendar.set(Calendar.YEAR, year)
             myCalendar.set(Calendar.MONTH, monthOfYear)
@@ -83,12 +82,13 @@ class VetHomePageActivity: AppCompatActivity(){
         val myFormat = "MM/dd/yy"
         val sdf = SimpleDateFormat(myFormat, Locale.US)
         appointmentDate.setText(sdf.format(myCalendar.getTime()))
-
+        val bundle2: Bundle? = intent.extras
+        val userId= bundle2?.getString("userID")
         val confirmBtn:Button?=findViewById(R.id.confirmBtn)
         confirmBtn?.setOnClickListener(View.OnClickListener {
             intent = Intent(applicationContext, MainActivity::class.java)
             intent.putExtra("time", myCalendar.getTime())
-            myReference.child("r680N7izmEYBTeJNiW7k0a7fspS2").child("approved").setValue(myCalendar.getTime().toString())
+            userId?.let { it1 -> myReference.child(it1).child("approved").setValue(myCalendar.getTime().toString()) }
             startActivity(intent)
         })
     }
