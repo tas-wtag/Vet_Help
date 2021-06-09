@@ -47,7 +47,7 @@ class VetHomePageActivity: AppCompatActivity(){
                 appointmentData) }
 
         recyclerView.setAdapter(adapter)
-        myReference.addValueEventListener(object : ValueEventListener {
+        myReference?.addValueEventListener(object : ValueEventListener {
             val bundle: Bundle? = intent.extras
             val emailVet = bundle?.get("emailVet")
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -68,7 +68,7 @@ class VetHomePageActivity: AppCompatActivity(){
         ft.replace(R.id.your_placeholder, CalendarFragment())
         ft.commit()
         recyclerView.visibility=View.GONE
-
+        val emailVet: String? =appointmentData.emailVet
         val date = OnDateSetListener { View, year, monthOfYear, dayOfMonth ->
             myCalendar.set(Calendar.YEAR, year)
             myCalendar.set(Calendar.MONTH, monthOfYear)
@@ -88,6 +88,7 @@ class VetHomePageActivity: AppCompatActivity(){
         confirmBtn?.setOnClickListener(View.OnClickListener {
             intent = Intent(applicationContext, MainActivity::class.java)
             intent.putExtra("time", myCalendar.getTime())
+            myReference.child("r680N7izmEYBTeJNiW7k0a7fspS2").child("approved").setValue(myCalendar.getTime().toString())
             startActivity(intent)
         })
     }

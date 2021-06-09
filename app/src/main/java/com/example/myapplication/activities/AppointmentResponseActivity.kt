@@ -25,7 +25,13 @@ class AppointmentResponseActivity : AppCompatActivity() {
         myRef?.child("approved")?.addListenerForSingleValueEvent(object :
             ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-               response.setText(snapshot.value.toString())
+                if(snapshot.value=="false") {
+                    response.setText("Not Approved Yet")
+                }
+                else
+                {
+                    response.setText(snapshot.value.toString())
+                }
             }
             override fun onCancelled(error: DatabaseError) {}
         })
