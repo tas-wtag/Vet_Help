@@ -11,8 +11,6 @@ import com.example.myapplication.VetListFragment
 import com.google.android.gms.dynamic.SupportFragmentWrapper
 import com.google.firebase.auth.FirebaseAuth
 
-
-@Suppress("DEPRECATION")
 class PetHomePageActivity : AppCompatActivity() {
     val fragmentTransaction= supportFragmentManager.beginTransaction()
     val myFragment: VetListFragment = VetListFragment()

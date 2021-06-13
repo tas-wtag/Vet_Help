@@ -19,8 +19,6 @@ import com.example.myapplication.adapters.MyAdapter
 import com.example.myapplication.models.VetDataModel
 import com.google.firebase.database.*
 
-
-@Suppress("UNREACHABLE_CODE")
 class VetListFragment: Fragment() {
 
     lateinit var recyclerView: RecyclerView

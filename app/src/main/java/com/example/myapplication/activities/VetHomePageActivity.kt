@@ -4,7 +4,6 @@ import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Intent
 import android.os.Bundle
-import android.text.Html
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -43,11 +42,10 @@ class VetHomePageActivity: AppCompatActivity(){
         recyclerView.setLayoutManager(LinearLayoutManager(this))
 
         list = ArrayList()
-        adapter = MyAppointmentAdapter(this, list!!) { appointmentData -> itemClicked(
-                appointmentData) }
+        adapter = MyAppointmentAdapter(this, list!!) { appointmentData -> itemClicked() }
 
         recyclerView.setAdapter(adapter)
-        myReference?.addValueEventListener(object : ValueEventListener {
+        myReference.addValueEventListener(object : ValueEventListener {
             val bundle: Bundle? = intent.extras
             val emailVet = bundle?.get("emailVet")
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -59,11 +57,12 @@ class VetHomePageActivity: AppCompatActivity(){
                 }
                 adapter!!.notifyDataSetChanged()
             }
+
             override fun onCancelled(error: DatabaseError) {}
         })
     }
 
-    private fun itemClicked(appointmentData: AppointmentDataModel) {
+    private fun itemClicked() {
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
         ft.replace(R.id.your_placeholder, CalendarFragment())
         ft.commit()
